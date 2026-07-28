@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>可视化上下文</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">上下文 / 可视化编辑器</p>
+          <h1 id="page-title">可视化上下文</h1>
+          <p id="page-description" class="page-description">
+            检查并清理参与下一轮模型请求的真实对话数据。
+          </p>
+        </div>
+        <div class="connection-state" aria-live="polite">
+          <span class="state-dot" aria-hidden="true"></span>
+          <span id="connection-label">正在连接</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="conversation-panel" aria-label="对话列表">
+          <div class="panel-heading">
+            <span class="section-label">对话列表</span>
+            <span id="conversation-total" class="panel-count">0</span>
+          </div>
+          <label class="search-field">
+            <span class="sr-only">搜索对话</span>
+            <input
+              id="conversation-search"
+              type="search"
+              autocomplete="off"
+              placeholder="搜索标题、来源或 ID"
+            />
+          </label>
+          <div id="conversation-list" class="conversation-list"></div>
+          <div class="pager">
+            <button id="previous-page" type="button">上一页</button>
+            <span id="page-indicator">1 / 1</span>
+            <button id="next-page" type="button">下一页</button>
+          </div>
+        </aside>
+
+        <section class="editor-panel">
+          <div id="empty-state" class="empty-state">
+            <p class="section-label">尚未选择对话</p>
+            <p>从左侧选择一条对话，开始检查和清理上下文。</p>
+          </div>
+
+          <div id="editor" class="editor" hidden>
+            <header class="editor-header">
+              <div class="editor-title-block">
+                <p class="section-label">当前对话</p>
+                <h2 id="conversation-title">未命名对话</h2>
+                <p id="conversation-umo" class="conversation-umo"></p>
+              </div>
+              <div class="editor-actions">
+                <button id="discard-button" type="button" hidden>放弃修改</button>
+                <button id="refresh-button" type="button">刷新</button>
+                <button id="add-message-button" type="button">新增消息</button>
+                <button id="save-button" class="primary-action" type="button" disabled>
+                  保存修改
+                </button>
+              </div>
+            </header>
+
+            <div id="conversation-meta" class="conversation-meta"></div>
+
+            <nav class="tabs" aria-label="上下文面板">
+              <button class="tab is-active" data-tab="context" type="button">
+                上下文
+              </button>
+              <button class="tab" data-tab="snapshots" type="button">
+                快照
+              </button>
+            </nav>
+
+            <div id="context-panel" class="tab-panel">
+              <div id="health-strip" class="health-strip"></div>
+              <div id="undo-strip" class="undo-strip" hidden>
+                <span>一条消息已从待保存内容中移除。</span>
+                <button id="undo-delete" type="button">撤销删除</button>
+              </div>
+              <div id="message-pager" class="message-pager">
+                <button id="previous-message-page" type="button">上一页</button>
+                <span id="message-page-indicator">1 / 1</span>
+                <button id="next-message-page" type="button">下一页</button>
+              </div>
+              <div id="message-list" class="message-list"></div>
+            </div>
+
+            <div id="snapshots-panel" class="tab-panel" hidden>
+              <div class="snapshot-intro">
+                <p class="section-label">自动恢复</p>
+                <p>
+                  <span id="snapshot-config-state">自动快照状态读取中。</span><br />
+                  已有快照不会因关闭自动创建而被删除，仍可恢复。
+                </p>
+              </div>
+              <div id="snapshot-list" class="snapshot-list"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="confirm-dialog">
+      <form method="dialog">
+        <p class="section-label">确认操作</p>
+        <h2 id="confirm-title">确认操作</h2>
+        <p id="confirm-message"></p>
+        <div class="dialog-actions">
+          <button value="cancel" type="submit">取消</button>
+          <button id="confirm-accept" value="confirm" type="submit">
+            确认
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
+
