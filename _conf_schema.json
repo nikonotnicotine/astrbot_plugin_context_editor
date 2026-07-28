@@ -1,0 +1,16 @@
+{
+    "enable_auto_snapshots":  {
+                                  "description":  "保存前自动创建上下文快照",
+                                  "hint":  "开启后，每次保存或恢复前会备份当前历史，最多保留最近 30 份；默认关闭。",
+                                  "obvious_hint":  true,
+                                  "type":  "bool",
+                                  "default":  false
+                              },
+    "filter_thinking_before_llm":  {
+                                       "description":  "是否将思维链发送给 LLM（开启后会在发送前过滤，不发送）",
+                                       "hint":  "默认关闭。开启后，数据库和可视化页面仍保留 think/thinking，但每次发送给 LLM 前会自动移除这些内容；页面中的思维链变为深色只读卡片。",
+                                       "obvious_hint":  true,
+                                       "type":  "bool",
+                                       "default":  false
+                                   }
+}

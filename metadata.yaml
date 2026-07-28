@@ -1,0 +1,9 @@
+name: astrbot_plugin_context_editor
+display_name: 可视化上下文
+desc: 在 AstrBot 插件页面中安全查看、修改和删减 LLM 对话上下文，支持思维链过滤和自动快照恢复。
+short_desc: 可视化清理上下文并按需过滤思维链。
+version: v1.1.0
+author: nikonotnicotine
+repo: https://github.com/nikonotnicotine/astrbot_plugin_context_editor
+astrbot_version: ">=4.24.2"
+
